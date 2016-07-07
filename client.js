@@ -1,13 +1,15 @@
 const net = require('net');
 const socket = new net.Socket();
+var os = require("os");
+var osName = os.hostname();
 
 socket.connect({port: '2459', host: '10.0.1.34'}, (() => {
-  socket.on('data', (data) => {
-    console.log('on is working' + data.toString());
-  });
 }));
 process.stdin.on('data', (data) => {
-    writeTest(data);
+  writeTest(data);
+});
+socket.on('data', (data) => {
+  console.log(data.toString());
 });
 
 function writeTest (data) {
