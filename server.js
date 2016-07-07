@@ -1,13 +1,18 @@
 const net = require('net');
-const fs = require('fs');
-const chatLog = fs.createWriteStream('./chatLog');
+var socket = net.Socket();
 
 const server = net.createServer((socket) => {
-  server.on('data', (data) => {
-    console.log('data received');
+
+  socket.on('end', function () {
+    console.log(' disconnected.');
+  });
+
+  console.log('client socket connection');
+  socket.on('data', (data) => {
+    console.log(data.toString());
   });
 });
 
 server.listen('6969', () => {
-  console.log('server started');
+  console.log('server listening');
 });
